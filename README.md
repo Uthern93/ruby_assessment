@@ -1,24 +1,43 @@
-# README
+# Ruby Blog App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a Ruby on Rails application that allows users to authenticate, register, create, read, update, and delete blog posts, as well as comment on them. The application includes user authentication using Devise and basic CRUD functionality for blog posts and comments.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+- **User Authentication**: 
+  - Register, Login, Logout, User delete using Devise.
+  
+- **Blog CRUD Operations**:
+  - Create, Read, Update, Delete blog posts.
+  
+- **Comments**:
+  - Users can comment on blog posts.
 
-* System dependencies
+## Installation
 
-* Configuration
+Follow the steps below to set up and run this application locally.
 
-* Database creation
+### Prerequisites
 
-* Database initialization
+Ensure you have the following installed:
+- Ruby (version 3.x)
+- Rails (version 7.x)
+- PostgreSQL
 
-* How to run the test suite
+### Setup
 
-* Services (job queues, cache servers, search engines, etc.)
+1. Clone the repository:
+   git clone https://github.com/Uthern93/ruby_assessment.git
 
-* Deployment instructions
+2. Navigate to the project directory:
+cd ruby_assessment
 
-* ...
+3. Install the required gems:
+bundle install
+
+4. Setup Database:
+rails db:create
+rails db:migrate
+
+5. Start the Rails server:
+rails server
