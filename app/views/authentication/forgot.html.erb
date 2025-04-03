@@ -1,0 +1,27 @@
+<div class="mt-8 max-w-md mx-auto bg-white shadow-lg rounded-lg p-6 ">
+
+    <% flash.each do |type, message| %>
+        <% next unless message.present? %>
+        <div class="p-4 rounded-md mb-6 
+                <%= type == 'alert' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800' %>">
+            <p><%= message %></p>
+        </div>
+    <% end %>
+
+
+    <h2 class="text-2xl font-bold text-center text-gray-900">Forgot Your Password?</h2>
+    <p class="text-sm font-bold text-center text-gray-500 mt-4">Enter your email below to reset your password</p>
+    
+    <%= form_with url: password_reset_path, class: "space-y-8" do |form| %>
+
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <%= form.email_field :email, class: "mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500", placeholder: "you@example.com" %>
+        </div>
+
+        <div>
+            <%= form.submit "Reset Password", class: "w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition duration-200 focus:ring-2 focus:ring-blue-400 focus:outline-none" %>
+        </div>
+
+    <% end %>
+</div>

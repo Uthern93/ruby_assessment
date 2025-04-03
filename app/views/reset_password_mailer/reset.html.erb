@@ -1,0 +1,14 @@
+<h1 class="text-2xl font-bold text-gray-900">Hello <%= @user.name %></h1>
+
+<p class="text-sm text-gray-700 mt-4">We received a request to change the password for your Blogs App account. To proceed with resetting your password, click the button below:</p>
+
+<!-- Reset Password Button with styling -->
+<p class="mt-6">
+  <%= link_to "Reset Password", password_reset_edit_url(token: @token), class: "inline-block px-6 py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-200" %>
+</p>
+
+<p class="text-sm text-gray-700 mt-6">If you didn’t request a password reset, you can safely ignore this email. The link will expire in 15 minutes, and your password will remain unchanged.</p>
+
+<p class="text-sm text-gray-600 mt-4">If you need further assistance, feel free to contact our support team.</p>
+
+<p class="mt-8 text-xs text-gray-500">This email was sent to <%= @user.email %>. If you did not request this change, please disregard this message.</p>

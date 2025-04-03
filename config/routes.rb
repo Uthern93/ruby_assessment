@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   get "register", to: "authentication#register"
   post "register", to: "authentication#create"
 
-  get "forgot", to: 'authentication#forgot'
+  get "password/reset", to: "authentication#forgot"
+  post "password/reset", to: "authentication#reset"
+  get "password/reset/edit", to: "authentication#password"
+  patch "password/reset/edit", to: "authentication#change"
 
   get "edit-user", to: "authentication#edit", as: :edit_user
   patch "edit-user", to: "authentication#update", as: :update_user

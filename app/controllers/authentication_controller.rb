@@ -2,7 +2,6 @@ class AuthenticationController < ApplicationController
   before_action :require_user_logged_in, only: [:edit, :update]
 
     def login
-
     end
     
     def signin
@@ -39,7 +38,6 @@ class AuthenticationController < ApplicationController
     end
 
     def edit
-
     end
 
     def update
@@ -54,6 +52,35 @@ class AuthenticationController < ApplicationController
             render :edit, status: :unprocessable_entity
         end
     end
+
+    def forgot
+    end
+
+    def reset
+        @user = User.find_by(email: params[:email])
+
+        if @user.present?
+            ResetPasswordMailer.with(user: @user).reset.deliver_later
+
+            redirect_to root_path, notice: "An email will be sent to #{@user.email} with instructions for resetting your password."
+        else
+            flash.now[:alert] = "Email address is not associated with our Blog App account"
+            render :forgot, status: :unprocessable_entity
+        end
+    end
+
+    def password
+        @user = User.find_signed(params[:token], purpose: "password_reset")
+    end
+
+    def change
+        @user = User.find_signed(params[:token], purpose: "password_reset")
+        if @user.update(password_params)
+            redirect_to login_path, notice: "Your password was reset successfully. Please sign in."
+        else
+            render :password, status: :unprocessable_entity
+        end
+    end
     
 
     private
@@ -61,5 +88,10 @@ class AuthenticationController < ApplicationController
     def user_params
         params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
+
+    def password_params
+        params.require(:user).permit(:password, :password_confirmation)
+    end
+
 
 end

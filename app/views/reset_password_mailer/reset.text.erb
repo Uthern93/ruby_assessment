@@ -1,0 +1,8 @@
+<h1>Hello <%= @user.name %></h1>
+
+<p class="text-sm font-bold text-gray-600 mt-6">A request has been received to change the password for your Blogs App. Click on the link to create new password:</p>
+
+
+<%= password_reset_edit_url(token: @token) %>
+
+<p class="text-sm font-bold text-gray-600 mt-6">If you didn't request a password reset, you can ignore this email and it will expire automatically in 15 minutes. Your password will remain the same.</p>
