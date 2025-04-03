@@ -1,4 +1,5 @@
 class AuthenticationController < ApplicationController
+  before_action :require_user_logged_in, only: [:edit, :update]
 
     def login
 
@@ -36,6 +37,24 @@ class AuthenticationController < ApplicationController
         session[:user_id] = nil
         redirect_to root_path, notice: "User logged out!"
     end
+
+    def edit
+
+    end
+
+    def update
+        if Current.user.authenticate(params[:user][:current_password])
+            if Current.user.update(user_params)
+                redirect_to root_path, notice: "User details updated successfully"
+            else
+                render :edit, status: :unprocessable_entity
+            end
+        else
+            flash.now[:alert] = "Incorrect password. Changes were not saved."
+            render :edit, status: :unprocessable_entity
+        end
+    end
+    
 
     private
 

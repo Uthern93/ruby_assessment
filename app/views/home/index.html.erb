@@ -1,20 +1,26 @@
 <div class="min-h-screen bg-gray-100">
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <!-- Welcome Section -->
-        <% if @user %>
+        
+        <% if flash[:notice] %>
+            <div class="bg-green-100 text-green-800 p-4 rounded-md mb-6">
+                <p><%= flash[:notice] %></p>
+            </div>
+        <% end %>
+
+        <% if Current.user %>
             <div class="bg-white shadow rounded-lg p-8">
                 <div class="flex items-center justify-between">
                     <div>
                         <h1 class="text-2xl font-semibold text-gray-900">
-                            Welcome back, <%= @user.name %>
+                            Welcome back, <%= Current.user.name %>
                         </h1>
                         <p class="mt-2 text-sm text-gray-600">
                             Here's what's happening today
                         </p>
                     </div>
                     <div class="flex items-center space-x-4">
-                        <a href="/profile" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <a href="/home/profile" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             Profile
                         </a>
                         <%# <%= button_to "Logout", logout_path, method: :delete, class: "inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
@@ -23,26 +29,26 @@
             </div>
         <% end %>
 
-        <!-- Quick Actions -->
         <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
-                <h3 class="text-lg font-medium text-gray-900">Your Profile</h3>
+                <h3 class="text-lg font-medium text-gray-900">Welcome to Our Blog!</h3>
                 <p class="mt-2 text-sm text-gray-600">
-                    View and update your profile information
+                    Discover insightful articles and join the conversation.
                 </p>
             </div>
             <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
-                <h3 class="text-lg font-medium text-gray-900">Settings</h3>
+                <h3 class="text-lg font-medium text-gray-900">Explore Topics</h3>
                 <p class="mt-2 text-sm text-gray-600">
-                    Manage your account settings and preferences
+                    Browse through various topics and find what interests you.
                 </p>
             </div>
             <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
-                <h3 class="text-lg font-medium text-gray-900">Help Center</h3>
+                <h3 class="text-lg font-medium text-gray-900">Join the Community</h3>
                 <p class="mt-2 text-sm text-gray-600">
-                    Get support and answers to your questions
+                    Engage with other readers and share your thoughts.
                 </p>
             </div>
         </div>
+        
     </main>
 </div>

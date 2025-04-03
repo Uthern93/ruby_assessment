@@ -1,36 +1,28 @@
 <div class="min-h-screen bg-gray-100 py-6">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Profile Header -->
-        <div class="bg-white shadow rounded-lg mb-6">
-            <div class="px-4 py-5 sm:px-6">
-                <div class="flex items-center justify-between">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">Profile Information</h3>
-                    <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Edit Profile
-                    </button>
+
+        <% if Current.user %>
+            <div class="bg-white shadow rounded-lg mb-6">
+                <div class="px-4 py-5 sm:px-6">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">Profile Information</h3>
+                        <%= link_to "Edit Profile", edit_user_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                    <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                        <div class="sm:col-span-1">
+                            <dt class="text-sm font-medium text-gray-500">Full name</dt>
+                            <dd class="mt-1 text-sm text-gray-900"><%= Current.user.name %></dd>
+                        </div>
+                        <div class="sm:col-span-1">
+                            <dt class="text-sm font-medium text-gray-500">Email</dt>
+                            <dd class="mt-1 text-sm text-gray-900"><%= Current.user.email %></dd>
+                        </div>
+                    </dl>
                 </div>
             </div>
-            <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
-                <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-                    <div class="sm:col-span-1">
-                        <dt class="text-sm font-medium text-gray-500">Full name</dt>
-                        <dd class="mt-1 text-sm text-gray-900">John Doe</dd>
-                    </div>
-                    <div class="sm:col-span-1">
-                        <dt class="text-sm font-medium text-gray-500">Email</dt>
-                        <dd class="mt-1 text-sm text-gray-900">john.doe@example.com</dd>
-                    </div>
-                    <div class="sm:col-span-1">
-                        <dt class="text-sm font-medium text-gray-500">Phone</dt>
-                        <dd class="mt-1 text-sm text-gray-900">+1 (555) 123-4567</dd>
-                    </div>
-                    <div class="sm:col-span-1">
-                        <dt class="text-sm font-medium text-gray-500">Location</dt>
-                        <dd class="mt-1 text-sm text-gray-900">San Francisco, CA</dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
+        <% end %>
 
         <!-- Account Settings -->
         <div class="bg-white shadow rounded-lg mb-6">
@@ -57,6 +49,8 @@
 
         <!-- Danger Zone -->
         <div class="bg-white shadow rounded-lg">
+
+            <% if Current.user %>
             <div class="px-4 py-5 sm:px-6">
                 <h3 class="text-lg leading-6 font-medium text-red-900">Danger Zone</h3>
             </div>
@@ -81,6 +75,28 @@
                     <%= button_to "Logout",logout_path, method: :delete, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" %>
                 </div>
             </div>
+            <% else %>
+                <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-900">Login</h4>
+                            <p class="text-sm text-gray-500">Sign In to your account</p>
+                        </div>
+                        <%= link_to "Login",login_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" %>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-900">Signup</h4>
+                            <p class="text-sm text-gray-500">Sign up as a new user now!</p>
+                        </div>
+                        <%= link_to "Signup", register_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" %>
+                    </div>
+                </div>
+            <% end %>
+
         </div>
     </div>
 </div>
