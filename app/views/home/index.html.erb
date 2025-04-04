@@ -1,7 +1,7 @@
 <div class="min-h-screen bg-gray-100">
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        
+
         <% if flash[:notice] %>
             <div class="bg-green-100 text-green-800 p-4 rounded-md mb-6">
                 <p><%= flash[:notice] %></p>
@@ -29,26 +29,50 @@
             </div>
         <% end %>
 
-        <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
-                <h3 class="text-lg font-medium text-gray-900">Welcome to Our Blog!</h3>
-                <p class="mt-2 text-sm text-gray-600">
-                    Discover insightful articles and join the conversation.
-                </p>
+        <%# show blogs %>
+        <% if @blogs.present? %>
+            <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                <% @blogs.each do |blog| %>
+                    <%= link_to "/blogs/#{blog.id}", class: "block" do %>
+                        <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow duration-200 cursor-pointer">
+                            <% if blog.image_url.attached? %>
+                                <%= image_tag url_for(blog.image_url), class: "w-full h-48 object-cover rounded-md mb-4" %>
+                            <% end %>
+
+                            <h3 class="text-lg font-bold text-gray-900"><%= blog.title %></h3>
+                            <p class="mt-2 text-sm text-gray-700">
+                                <%= blog.content.body.to_plain_text.truncate(100) %>
+                            </p>
+
+                            <p class="mt-4 text-xs text-gray-500">
+                            Posted by <%= blog.user.name %> • <%= time_ago_in_words(blog.created_at) %> ago
+                            </p>
+                        </div>
+                    <% end %>
+                <% end %>
             </div>
-            <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
-                <h3 class="text-lg font-medium text-gray-900">Explore Topics</h3>
-                <p class="mt-2 text-sm text-gray-600">
-                    Browse through various topics and find what interests you.
-                </p>
+        <% else %>
+            <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+                    <h3 class="text-lg font-medium text-gray-900">Welcome to Our Blog!</h3>
+                    <p class="mt-2 text-sm text-gray-600">
+                        Discover insightful articles and join the conversation.
+                    </p>
+                </div>
+                <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+                    <h3 class="text-lg font-medium text-gray-900">Explore Topics</h3>
+                    <p class="mt-2 text-sm text-gray-600">
+                        Browse through various topics and find what interests you.
+                    </p>
+                </div>
+                <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
+                    <h3 class="text-lg font-medium text-gray-900">Join the Community</h3>
+                    <p class="mt-2 text-sm text-gray-600">
+                        Engage with other readers and share your thoughts.
+                    </p>
+                </div>
             </div>
-            <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow duration-200">
-                <h3 class="text-lg font-medium text-gray-900">Join the Community</h3>
-                <p class="mt-2 text-sm text-gray-600">
-                    Engage with other readers and share your thoughts.
-                </p>
-            </div>
-        </div>
+        <% end %>
         
     </main>
 </div>

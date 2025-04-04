@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
+  # navigation for navbar
   root 'home#index'
   get 'home/profile'
-  get 'home/create'
+  get 'blogs/new'
 
   # User authentication
   get "login", to: "authentication#login"
@@ -19,6 +20,13 @@ Rails.application.routes.draw do
   patch "edit-user", to: "authentication#update", as: :update_user
 
   delete "logout", to: "authentication#logout"
+
+  # blogs
+  post "new/blogs", to: "blogs#create"
+  get '/blogs/:id', to: 'blogs#show'
+  get '/blogs/:id/edit', to: 'blogs#edit'
+  patch '/blogs/:id/edit', to: 'blogs#update'
+  delete '/blogs/:id/edit', to: 'blogs#delete'
 
   get "up" => "rails/health#show", as: :rails_health_check
 

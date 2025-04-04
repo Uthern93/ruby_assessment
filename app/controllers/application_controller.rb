@@ -11,4 +11,10 @@ class ApplicationController < ActionController::Base
     redirect_to login_path, alert: "You have to be logged in to do that." if Current.user.nil?
   end
 
+  def redirect_if_logged_in
+    if session[:user_id]
+        redirect_to root_path, alert: "You are already logged in!"
+    end
+  end
+
 end

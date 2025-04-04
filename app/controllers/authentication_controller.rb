@@ -1,5 +1,6 @@
 class AuthenticationController < ApplicationController
-  before_action :require_user_logged_in, only: [:edit, :update]
+  before_action :require_user_logged_in, only: [:edit, :update, :logout]
+  before_action :redirect_if_logged_in, only: [:register, :create, :login, :signin]
 
     def login
     end
@@ -23,14 +24,19 @@ class AuthenticationController < ApplicationController
 
     def create
         @user = User.new(user_params)
-
-        if @user.save
+    
+        if User.exists?(email: @user.email)
+            @user.errors.add(:email, "is already taken")
+            render :register, status: :unprocessable_entity
+        elsif @user.save
             session[:user_id] = @user.id
-            redirect_to root_path, notice: "Successfully registered!"
+            redirect_to root_path, notice: "New User Successfully registered!"
         else
             render :register, status: :unprocessable_entity
         end
     end
+    
+    
 
     def logout
         session[:user_id] = nil

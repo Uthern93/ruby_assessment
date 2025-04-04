@@ -1,0 +1,34 @@
+<div class="max-w-2xl mx-auto mt-10">
+  <h2 class="text-2xl font-bold mb-6 text-center">Create a New Blog</h2>
+
+  <%= form_with model: @blog, local: true, url: new_blogs_path do |form| %>
+    <% if @blog.errors.any? %>
+      <div class="bg-red-100 p-4 rounded mb-4">
+        <ul>
+          <% @blog.errors.full_messages.each do |msg| %>
+            <li class="text-red-600"><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-4">
+      <%= form.label :title, class: "block text-gray-700 font-semibold" %>
+      <%= form.text_field :title, class: "mt-1 w-full p-2 border border-gray-300 rounded" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :content, class: "block text-gray-700 font-semibold" %>
+      <%= form.rich_text_area :content %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :image, class: "block text-gray-700 font-semibold" %>
+      <%= form.file_field :image_url, class: "mt-1 w-full" %>
+    </div>
+
+    <div>
+      <%= form.submit "Create Blog", class: "w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700" %>
+    </div>
+  <% end %>
+</div>
