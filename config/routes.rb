@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   patch '/blogs/:id/edit', to: 'blogs#update'
   delete '/blogs/:id/edit', to: 'blogs#delete'
 
+  # comment
+  post "comment/blog/:id", to: "comment#create"
+
   get "up" => "rails/health#show", as: :rails_health_check
 
 end

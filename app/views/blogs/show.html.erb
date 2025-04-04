@@ -1,18 +1,23 @@
-<div class="max-w-3xl mx-auto mt-8">
-    <div class="bg-white shadow rounded-lg p-6 relative">
+<% if flash[:notice] %>
+    <div class="bg-green-100 text-green-800 p-4 rounded-md mb-6">
+        <p><%= flash[:notice] %></p>
+    </div>
+<% end %>
 
+<div class="max-w-3xl mx-auto mt-8 mb-20 shadow-md">
+    <div class="bg-white shadow rounded-lg p-6 relative">
+    
+            <% if Current.user == @blog.user %>
             <div class="absolute top-4 right-4">
                 <button onclick="toggleMenu()" class="p-2 rounded-full hover:bg-gray-500 transition">
                     &#x22EE;
                 </button>
                 <div id="dropdownMenu" class="hidden absolute right-0 mt-2 bg-white shadow-lg rounded-md w-32">
-                    <% if Current.user == @blog.user %>
-                        <%= link_to "Edit", "/blogs/#{@blog.id}/edit", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
-                    <% end %>
-
+                    <%= link_to "Edit", "/blogs/#{@blog.id}/edit", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
                     <%= button_to "Delete", "/blogs/#{@blog.id}/edit", method: :delete, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
                 </div>
             </div>
+            <% end %>
 
         <h1 class="text-3xl font-bold text-gray-900">
             <%= @blog.title %>
@@ -29,11 +34,33 @@
         <%= image_tag @blog.image_url, class: "w-full h-full object-cover rounded-md my-4" if @blog.image_url.present? %>
 
         <p class="text-sm text-gray-700 mt-4">
-            1 Comments
+            <%= pluralize(@blog.comments.count, 'Comment') %>
         </p>
+
+        <div class="mt-6 border-t border-gray-200 pt-4">
+            <% @blog.comments.each do |comment| %>
+                <div class="p-3 border-2 border-gray-200 rounded-md">
+                    <p class="text-gray-800"><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+                </div>
+            <% end %>
+        </div>
 
     </div>
 </div>
+
+<div class="fixed bottom-0 left-0 w-full bg-white px-6 py-4">
+  <%= form_with model: @comment, url: "/comment/blog/#{@blog.id}" do |form| %>
+    <div class="flex items-center space-x-2">
+      <%= form.text_field :content, 
+          class: "flex-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", 
+          placeholder: "Comment as #{Current.user.name}" %>
+          
+      <%= form.submit "Post", class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm" %>
+    </div>
+  <% end %>
+</div>
+
+
 
 <script>
     function toggleMenu() {
