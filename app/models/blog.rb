@@ -1,4 +1,5 @@
 class Blog < ApplicationRecord
+  include PgSearch::Model
 
   belongs_to :user
   has_many :comments, dependent: :destroy
@@ -10,6 +11,12 @@ class Blog < ApplicationRecord
   validates :content, presence: true
 
   scope :active, -> { where(deleted_at: nil) }
+
+  pg_search_scope :search_blogs, 
+                  against: [:title, :content], 
+                  using: {
+                    tsearch: { prefix: true }
+                  }
 
   def soft_delete
     update(deleted_at: Time.current)

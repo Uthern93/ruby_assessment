@@ -39,8 +39,21 @@
 
         <div class="mt-6 border-t border-gray-200 pt-4">
             <% @blog.comments.each do |comment| %>
-                <div class="p-3 border-2 border-gray-200 rounded-md">
-                    <p class="text-gray-800"><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+                <div class="p-3 border-2 border-gray-200 rounded-md relative">
+                    <p class="text-gray-800">
+                        <strong><%= comment.user.name %>:</strong> <%= comment.content %>
+                    </p>
+                    <%# delete comment %>
+                    <% if Current.user.id == comment.user_id %>
+                        <div class="absolute top-1 right-1">
+                            <button onclick="toggleDelete('<%= comment.id %>')" class="p-2 rounded-full hover:bg-gray-500 transition">
+                                &#x22EE;
+                            </button>
+                            <div id="dropdownDelete-<%= comment.id %>" class="hidden absolute right-0 mt-2 bg-white shadow-lg rounded-md w-32 z-50">
+                                <%= button_to "Delete", "/comment/blog/#{comment.id}", method: :delete, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+                            </div>
+                        </div>
+                    <% end %>
                 </div>
             <% end %>
         </div>
@@ -66,4 +79,11 @@
     function toggleMenu() {
         document.getElementById('dropdownMenu').classList.toggle('hidden');
     }
+
+    function toggleDelete(commentId) {
+    const menu = document.getElementById('dropdownDelete-' + commentId);
+    if (menu) {
+      menu.classList.toggle('hidden');
+    }
+  }
 </script>

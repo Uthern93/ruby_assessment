@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   # comment
   post "comment/blog/:id", to: "comment#create"
+  delete "comment/blog/:id", to: "comment#destroy"
 
   get "up" => "rails/health#show", as: :rails_health_check
 

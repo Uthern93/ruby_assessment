@@ -17,7 +17,6 @@ class BlogsController < ApplicationController
   end
 
   def show
-    # Find the blog first
     @blog = Blog.find_by(id: params[:id])
     if @blog.nil?
       redirect_to root_path, alert: "Blog not found"
