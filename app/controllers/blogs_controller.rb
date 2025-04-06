@@ -30,6 +30,9 @@ class BlogsController < ApplicationController
 
   def edit 
     @blog = Blog.find_by(id: params[:id])
+    if @blog.nil?
+      redirect_to root_path, alert: "Blog not found or it doesnt exist"
+    end
   end
 
   def update
@@ -52,9 +55,14 @@ class BlogsController < ApplicationController
   end
 
   def authorize_user
-    @blog = Blog.find(params[:id])
-    if @blog.user_id != session[:user_id]
-      redirect_to root_path, alert: "You are not authorized to edit this blog."
+    @blog = Blog.find_by(id: params[:id])
+
+    if @blog.nil?
+      redirect_to root_path, alert: "Blog not found or it doesnt exist"
+    else
+      if @blog.user_id != session[:user_id]
+        redirect_to root_path, alert: "You are not authorized to edit this blog."
+      end
     end
   end
 
