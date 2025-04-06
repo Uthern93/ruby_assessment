@@ -1,75 +1,66 @@
-<div class="min-h-screen bg-gray-100 flex flex-col py-12 sm:px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
-        </h2>
-    </div>
+<div class="min-h-screen bg-gray-100 flex flex-col py-12 px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto w-full max-w-md">
+    <h2 class="mt-6 text-center text-xl sm:text-xl md:text-2xl font-extrabold text-gray-900">
+      Sign in to your account
+    </h2>
+  </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-xl">
-        <div class="bg-white py-8 px-8 shadow sm:rounded-lg sm:px-10">
-            <%= form_with url: login_path, method: :post do |form| %>
-            
-                <% flash.each do |type, message| %>
-                    <% next unless message.present? %>
-                    <div class="mb-6 p-4  border-l-4 <%= type == 'alert' ? 'bg-red-50 border-red-400' : 'bg-green-50 border-green-400' %>">
-                        <div class="flex">
-                            <div class="flex-1">
-                                <p class="text-sm font-medium mb-2 <%= type == 'alert' ? 'text-red-700' : 'text-green-700' %>">
-                                    <%= type =='alert' ? "Please fix the following errors:" : "The following request:" %>
-                                </p>
-                                <ul class="list-disc list-inside space-y-1">
-                                    <li class="text-sm <%= type == 'alert' ? 'text-red-600' : 'text-green-600' %>"><%= message %></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                <% end %>
+  <div class="mt-8 mx-auto w-full max-w-md">
+    <div class="bg-white py-8 px-6 shadow-md rounded-lg sm:px-10">
+      <%= form_with url: login_path, method: :post do |form| %>
 
-                <!-- Email Field -->
-                <div>
-                    <label for="email" class="block text-base font-medium text-gray-700">
-                        Email address
-                    </label>
-                    <div class="mt-1">
-                        <%= form.text_field :email, class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", placeholder: 'user@email.com' %>
-                    </div>
-                </div>
-
-                <!-- Password Field -->
-                <div>
-                    <label for="password" class="block text-base font-medium text-gray-700">
-                        Password
-                    </label>
-                    <div class="mt-1">
-                        <%= form.password_field :password, class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", placeholder: '*****' %>
-                    </div>
-                </div>
-
-                <!-- Remember Me -->
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <%= form.check_box :remember_me, class: "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" %>
-                        <label for="remember_me" class="ml-2 block text-sm text-gray-900">
-                            Remember me
-                        </label>
-                    </div>
-
-                    <div class="text-sm">
-                        <%= link_to "Forgot your password?", password_reset_path, class: "font-medium text-indigo-600 hover:text-indigo-500" %>
-                    </div>
-                </div>
-
-                <p class="mt-2 mb-2 text-center text-sm text-gray-600">
-                    Or
-                    <a href="/register" class="font-medium text-indigo-600 hover:text-indigo-500">
-                        create a new account
-                    </a>
+        <% flash.each do |type, message| %>
+          <% next unless message.present? %>
+          <div class="mb-6 p-4 border-l-4 <%= type == 'alert' ? 'bg-red-50 border-red-400' : 'bg-green-50 border-green-400' %>">
+            <div class="flex">
+              <div class="flex-1">
+                <p class="text-sm font-medium mb-2 <%= type == 'alert' ? 'text-red-700' : 'text-green-700' %>">
+                  <%= type == 'alert' ? "Please fix the following errors:" : "Notice:" %>
                 </p>
+                <ul class="list-disc list-inside space-y-1">
+                  <li class="text-sm <%= type == 'alert' ? 'text-red-600' : 'text-green-600' %>"><%= message %></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        <% end %>
 
-                <div>
-                    <%= form.submit "Sign In", class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
-                </div>
-            <% end %>
+        <div class="mb-4">
+          <label for="email" class="block text-base font-medium text-gray-700">
+            Email address
+          </label>
+          <div class="mt-1">
+            <%= form.text_field :email, class: "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", placeholder: 'user@email.com' %>
+          </div>
         </div>
+
+        <div class="mb-4">
+          <label for="password" class="block text-base font-medium text-gray-700">
+            Password
+          </label>
+          <div class="mt-1">
+            <%= form.password_field :password, class: "block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", placeholder: '*****' %>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between mb-4">
+          <div class="text-sm">
+            <%= link_to "Forgot your password?", password_reset_path, class: "font-medium text-indigo-600 hover:text-indigo-500" %>
+          </div>
+        </div>
+
+        <p class="mt-4 mb-2 text-center text-sm text-gray-600">
+          Or
+          <a href="/register" class="font-medium text-indigo-600 hover:text-indigo-500">
+            create a new account
+          </a>
+        </p>
+
+        <div>
+          <%= form.submit "Sign In", class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+        </div>
+
+      <% end %>
     </div>
+  </div>
 </div>
