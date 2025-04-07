@@ -5,7 +5,7 @@ This is a Ruby on Rails application that allows users to authenticate, register,
 ## Features
 
 - **User Authentication**: 
-  - Register, Login, Logout, User delete using Devise.
+  - Register, Login, Logout
   
 - **Blog CRUD Operations**:
   - Create, Read, Update, Delete blog posts.
